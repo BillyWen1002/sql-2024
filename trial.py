@@ -108,21 +108,30 @@ def print_all_agents_released_year():
     #llop finished here
     db.close()
 
-def print_new_agents():
-    name = input("What is the agent's name?")
-    role = input("What is the agent's role?")
-    winrate = input("What is the agent's winrate?")
-    Gender = input("What is the agent's gender?")
-    map = input("What is the agent's strongest map?")
-    ult = input("What is the agent's ult point needed for ult?")
-    released = ("What is the agent's released year?")
-
-    '''print all the agents nicely'''
+def deleting_data():
+    change = input("What is the ID of the agent you would like to remove\n")
     db = sqlite3.connect('valorant.db')
     cursor = db.cursor()
-    sql = "INSERT INTO valorant Values ('Name, Role, Winrate, Gender, Strongest map, ult points needed, released year') VALUES (f" {name}, {role}, {winrate}, {gender}, {map}, {ult}, {released}")"
+    sql = f'''DELETE FROM agents WHERE agent_id = "{change}"'''
     cursor.execute(sql)
     db.commit()
+
+def print_new_agents():
+    number = input("What is the agent's ID number? ")
+    name = input("What is the agent's name? ")
+    role = input("What is the agent's role? ")
+    winrate = input("What is the agent's winrate? ")
+    gender = input("What is the agent's gender? ")
+    map = input("What is the agent's strongest map? ")
+    ult = input("What is the agent's ult point needed for ult? ")
+    released = input("What is the agent's released year? ")
+
+    db = sqlite3.connect('valorant.db')
+    cursor = db.cursor()
+    sql = f"INSERT INTO agents VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+    cursor.execute(sql, (number, name, role, winrate, gender, map, ult, released))
+    db.commit()
+    db.close()
     
 
 #main code
@@ -136,7 +145,8 @@ while True:
                        "\n6. Print agent name + ult points from most to least"
                        "\n7. Print agent name + released year from newest to oldest"
                        "\n8. Input new data"
-                       "\n")
+                       "\n9. Delete row"
+                       "\nYou: ")
     if user_input == "1":
         print_all_agents()
     elif user_input == "2":
@@ -153,5 +163,9 @@ while True:
         print_all_agents_released_year()
     elif user_input == "8":
         print_new_agents()
+    elif user_input == "9":
+        deleting_data()
+    elif user_input == "10":
+
     else:
         print("That was not an option\n")
