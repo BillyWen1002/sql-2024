@@ -132,6 +132,61 @@ def print_new_agents():
     cursor.execute(sql, (number, name, role, winrate, gender, map, ult, released))
     db.commit()
     db.close()
+
+
+def edit_agent_data():
+    agent_id = input("Enter the ID of the agent you want to edit: ")
+    db = sqlite3.connect('valorant.db')
+    cursor = db.cursor()
+    sql = "SELECT * FROM agents WHERE agent_id = ?"
+    cursor.execute(sql, (agent_id,))
+    agent = cursor.fetchone()
+    for row in agent:
+        print(row)
+    if agent:
+        agent_name = agent[1]
+        role = agent[2]
+        winrate = agent[3]
+        gender = agent[4]
+        strongest_map = agent[5]
+        ult_points = agent[6]
+        released_year = agent[7]
+        print("Current Agent Details:")
+        print("1. Name:", agent[1])
+        print("2. Role:", agent[2])
+        print("3. Winrate:", agent[3])
+        print("4. Gender:", agent[4])
+        print("5. Strongest Map:", agent[5])
+        print("6. Ult Points:", agent[6])
+        print("7. Released Year:", agent[7])
+        attribute = input("Enter the number of the attribute you want to edit (or 0 to cancel): ")
+        if attribute == "0":
+            return
+        new_value = input("Enter the new value: ")
+        if attribute == "1":
+            agent_name = new_value
+        elif attribute == "2":
+            role = new_value
+        elif attribute == "3":
+            winrate = new_value
+        elif attribute == "4":
+            gender = new_value
+        elif attribute == "5":
+            strongest_map = new_value
+        elif attribute == "6":
+            ult_points = new_value
+        elif attribute == "7":
+            released_year = new_value
+        else:
+            print("Invalid attribute number.")
+            return
+        sql = f"UPDATE agents SET agent_name=?, role=?, winrate=?, gender=?, strongest_map=?, ult_points=?, released_year=? WHERE agent_id=?"
+        cursor.execute(sql, (agent_name, role, winrate, gender, strongest_map, ult_points, released_year, agent_id))
+        db.commit()
+        print("Agent data updated successfully.")
+    else:
+        print("Agent not found.")
+
     
 
 #main code
@@ -146,6 +201,7 @@ while True:
                        "\n7. Print agent name + released year from newest to oldest"
                        "\n8. Input new data"
                        "\n9. Delete row"
+                       "\n10. Edit data"
                        "\nYou: ")
     if user_input == "1":
         print_all_agents()
@@ -166,6 +222,6 @@ while True:
     elif user_input == "9":
         deleting_data()
     elif user_input == "10":
-
+        edit_agent_data()
     else:
         print("That was not an option\n")
