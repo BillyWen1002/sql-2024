@@ -141,8 +141,6 @@ def edit_agent_data():
     sql = "SELECT * FROM agents WHERE agent_id = ?"
     cursor.execute(sql, (agent_id,))
     agent = cursor.fetchone()
-    for row in agent:
-        print(row)
     if agent:
         agent_name = agent[1]
         role = agent[2]
