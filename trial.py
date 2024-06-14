@@ -22,7 +22,7 @@ def print_all_agents():
     db.close()
 
 
-
+#this prints out my agent roles
 def print_all_agents_role():
     '''print all the agents nicely'''
     db = sqlite3.connect('valorant.db')
@@ -38,6 +38,7 @@ def print_all_agents_role():
     #llop finished here
     db.close()
 
+#this function prints out the agent names along with the winrate
 def print_all_agents_winrate():
     '''print all the agents nicely'''
     db = sqlite3.connect('valorant.db')
@@ -52,6 +53,7 @@ def print_all_agents_winrate():
     #llop finished here
     db.close()
 
+#this function prints out the agent names along with the gender
 def print_all_agents_gender():
     '''print all the agents nicely'''
     db = sqlite3.connect('valorant.db')
@@ -66,6 +68,7 @@ def print_all_agents_gender():
     #llop finished here
     db.close()
 
+#this function prints out the agent names along with the strongest maps
 def print_all_agents_strongest_map():
     '''print all the agents nicely'''
     db = sqlite3.connect('valorant.db')
@@ -80,6 +83,7 @@ def print_all_agents_strongest_map():
     #llop finished here
     db.close()
 
+#this function prints out the agent names along with the ult points needed to get their ult
 def print_all_agents_ult_points():
     '''print all the agents nicely'''
     db = sqlite3.connect('valorant.db')
@@ -94,6 +98,7 @@ def print_all_agents_ult_points():
     #llop finished here
     db.close()
 
+#this function prints out the agent names along with the released year
 def print_all_agents_released_year():
     '''print all the agents nicely'''
     db = sqlite3.connect('valorant.db')
@@ -108,6 +113,7 @@ def print_all_agents_released_year():
     #llop finished here
     db.close()
 
+#this function deletes the agent from the data base 
 def deleting_data():
     change = input("What is the ID of the agent you would like to remove\n")
     db = sqlite3.connect('valorant.db')
@@ -116,6 +122,7 @@ def deleting_data():
     cursor.execute(sql)
     db.commit()
 
+#this function asks for the info for the new agent the user wishs to input an inserts the data into the database
 def print_new_agents():
     number = input("What is the agent's ID number? ")
     name = input("What is the agent's name? ")
@@ -134,6 +141,7 @@ def print_new_agents():
     db.close()
 
 
+#this function edits the agent data how ever the user wishs and it get saved to the database
 def edit_agent_data():
     agent_id = input("Enter the ID of the agent you want to edit: ")
     db = sqlite3.connect('valorant.db')
@@ -188,6 +196,7 @@ def edit_agent_data():
     
 
 #main code
+#this code prints out all the functions the user can select from
 while True:
     user_input = input("\nWhat would you like to do."
                        "\n1. Print all agents in the agent id order from lowest to highest"
